@@ -1,6 +1,6 @@
 {
   "name": "dk_test_names",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Used to create sample name-data using legal danish names",
   "main": "index.js",
   "scripts": {
