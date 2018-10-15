@@ -1,6 +1,9 @@
 var fs = require('fs');
+var path = require('path');
 
-function readFile(fileName) {
+
+function readFile(file_Name) {
+  const fileName = path.join(__dirname,file_Name);
   return new Promise((resolve, reject) => {
     fs.readFile(fileName, function (err, data) {
       if (err) {
@@ -60,7 +63,7 @@ async function makeTestData(total, init) {
 
 }
 async function makeDataArray(total) {
-  const all = await Promise.all([readFile("./names/males.txt"), readFile("./names/females.txt"), readFile("./names/surnames.txt")]);
+  const all = await Promise.all([readFile("names/males.txt"), readFile("names/females.txt"), readFile("names/surnames.txt")]);
   const genderVal = ["male", "female"];
   let names = [];
   for (let id = 0; id < total; id++) {

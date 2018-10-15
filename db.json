@@ -1,0 +1,11 @@
+{
+  "api": [
+    {
+      "id": 0,
+      "gender": "male",
+      "firstName": "Dost",
+      "lastName": "Pedersen",
+      "email": "dost36@somewhere.dk"
+    }
+  ]
+}
