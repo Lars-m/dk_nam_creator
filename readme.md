@@ -1,16 +1,16 @@
-# dk_name_creator
+# dk_test_names
 
 - Quick way to create simple, but large JSON-data samples, meant to be used with [json-server](https://www.npmjs.com/package/json-server)
 - Data represent (hardcoded like this) legal danish names, with gender and a fake email.
 
 # Installation
 
-`$ npm install dknamecreator`
+`$ npm install dk_test_names`
 
 ### In Node.js:
 
 ```javascript
-const makeTestData = require('dknamecreator');
+const makeTestData = require('dk_test_names');
 ```
 
 ```javascript
