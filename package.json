@@ -1,0 +1,16 @@
+{
+  "name": "dk_name_creator",
+  "version": "1.0.3",
+  "description": "Used to create sample name-data using legal danish names",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "testdata",
+    "danish names"
+  ],
+  "author": "lam@cphbusiness.dk",
+  "license": "ISC"
+}
