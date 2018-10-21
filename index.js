@@ -3,7 +3,7 @@ var path = require('path');
 
 
 function readFile(file_Name) {
-  const fileName = path.join(__dirname,file_Name);
+  const fileName = path.join(__dirname, file_Name);
   return new Promise((resolve, reject) => {
     fs.readFile(fileName, function (err, data) {
       if (err) {
@@ -19,7 +19,7 @@ function getName(list) {
   return list[index];
 }
 async function makeTestData(total, init) {
-  if(total === undefined || !(typeof total === "number" )){
+  if (total === undefined || !(typeof total === "number")) {
     console.log("First argument(mandatory) must a number representing the amount of names to create!");
     process.exit();
   }
@@ -28,21 +28,34 @@ async function makeTestData(total, init) {
     console.log("Second argument (if provided) must an object with initialization parameters");
     process.exit();
   }
-  if(init && init.fileName && !(typeof init.fileName === "string")){
+
+  if (init) {
+    for (let key in init) {
+      if (init.hasOwnProperty(key) && key !== "fileName" && key !== "arrayManipulator") {
+        console.log(`'fileName' and/or 'arryManipulator' are the only allowed properties ---> '${key}'` );
+        process.exit();
+      }
+    }
+  }
+
+
+  if (init && init.fileName && !(typeof init.fileName === "string")) {
     console.log("Initialization Parameter 'fileName' must be a string");
     process.exit();
   }
-  if(init && init.mapCallback && !(typeof init.mapCallback === "function")){
-    console.log("Initialization Parameter 'mapCallback' must be a function");
+
+  if (init && init.arrayManipulator && !(typeof init.arrayManipulator === "function")) {
+    console.log("Initialization Parameter 'arrayManipulator' must be a function");
     process.exit();
   }
+
   let fileName;
   if (init && init.fileName) {
     fileName = init.fileName;
   }
 
   const names = await makeDataArray(total);
-  if (!init || (init && init.mapCallback === undefined)) {
+  if (!init || (init && (init.arrayManipulator === undefined))) {
     fileName = fileName || "db.json";
     fs.writeFile(fileName, JSON.stringify({ api: names }, null, 2), (err) => {
       if (err) {
@@ -50,10 +63,11 @@ async function makeTestData(total, init) {
       }
       console.log(`Created ${total} names in the file ${fileName}`)
     })
-  } else if (init && init.mapCallback) {
+  } else if (init && (init.arrayManipulator)) {
     fileName = fileName || "db.sql";
-    const mappedData = names.map(init.mapCallback).join("\n");
-    fs.writeFile(fileName, mappedData, (err) => {
+    const data = init.arrayManipulator(names);
+
+    fs.writeFile(fileName, data, (err) => {
       if (err) {
         return console.log(`UPPS, could not save '${fileName}',  ${err}`)
       }
